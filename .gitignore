@@ -1,0 +1,5 @@
+﻿# Byte-compiled / build output
+build/
+*.o
+*.exe
+*.out
