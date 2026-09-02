@@ -12,12 +12,45 @@ body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-.calculator {
+.app {
   width: min(90vw, 320px);
+}
+
+.calculator,
+.converter {
   background: #2b2d3e;
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tab-btn {
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  background: #2b2d3e;
+  color: #8b8da3;
+  font-size: 0.9rem;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab-btn:hover {
+  background: #3a3d54;
+  color: #ffffff;
+}
+
+.tab-btn.active {
+  background: #ffd166;
+  color: #1e1f29;
+  font-weight: 600;
 }
 
 .display {
@@ -92,4 +125,50 @@ body {
 
 .btn.zero {
   grid-column: span 2;
+}
+
+.conv-row {
+  display: flex;
+  align-items: center;
+  background: #14151d;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+.conv-row label {
+  width: 44px;
+  flex-shrink: 0;
+  color: #8b8da3;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.conv-row input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-family: inherit;
+  text-align: right;
+  outline: none;
+}
+
+.conv-row input.invalid {
+  color: #ff6b6b;
+}
+
+.conv-error {
+  min-height: 1.2em;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.conv-clear {
+  width: 100%;
 }

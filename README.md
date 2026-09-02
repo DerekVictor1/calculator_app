@@ -13,6 +13,7 @@ Open [index.html](index.html) in a browser.
 - Decimal input, backspace, and clear
 - Keyboard support: digits, `+ - * /`, `Enter`/`=`, `Backspace`, `Escape`
 - Division by zero shows an error instead of crashing
+- Base Converter tab: convert between decimal, binary, and hexadecimal live as you type in any field (supports negative integers, arbitrary size via BigInt)
 
 ## Files
 

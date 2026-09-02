@@ -7,36 +7,60 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="calculator">
-    <div class="display">
-      <div class="expression" id="expression"></div>
-      <div class="current" id="current">0</div>
+  <div class="app">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="calculator">Calculator</button>
+      <button class="tab-btn" data-tab="converter">Base Converter</button>
     </div>
-    <div class="buttons">
-      <button class="btn op" data-action="clear">C</button>
-      <button class="btn op" data-action="backspace">⌫</button>
-      <button class="btn op" data-action="operator" data-value="/">÷</button>
-      <button class="btn op" data-action="operator" data-value="*">×</button>
 
-      <button class="btn" data-action="digit" data-value="7">7</button>
-      <button class="btn" data-action="digit" data-value="8">8</button>
-      <button class="btn" data-action="digit" data-value="9">9</button>
-      <button class="btn op" data-action="operator" data-value="-">−</button>
+    <main class="calculator" id="calculatorPanel">
+      <div class="display">
+        <div class="expression" id="expression"></div>
+        <div class="current" id="current">0</div>
+      </div>
+      <div class="buttons">
+        <button class="btn op" data-action="clear">C</button>
+        <button class="btn op" data-action="backspace">⌫</button>
+        <button class="btn op" data-action="operator" data-value="/">÷</button>
+        <button class="btn op" data-action="operator" data-value="*">×</button>
 
-      <button class="btn" data-action="digit" data-value="4">4</button>
-      <button class="btn" data-action="digit" data-value="5">5</button>
-      <button class="btn" data-action="digit" data-value="6">6</button>
-      <button class="btn op" data-action="operator" data-value="+">+</button>
+        <button class="btn" data-action="digit" data-value="7">7</button>
+        <button class="btn" data-action="digit" data-value="8">8</button>
+        <button class="btn" data-action="digit" data-value="9">9</button>
+        <button class="btn op" data-action="operator" data-value="-">−</button>
 
-      <button class="btn" data-action="digit" data-value="1">1</button>
-      <button class="btn" data-action="digit" data-value="2">2</button>
-      <button class="btn" data-action="digit" data-value="3">3</button>
-      <button class="btn equals" data-action="equals" rowspan="2">=</button>
+        <button class="btn" data-action="digit" data-value="4">4</button>
+        <button class="btn" data-action="digit" data-value="5">5</button>
+        <button class="btn" data-action="digit" data-value="6">6</button>
+        <button class="btn op" data-action="operator" data-value="+">+</button>
 
-      <button class="btn zero" data-action="digit" data-value="0">0</button>
-      <button class="btn" data-action="decimal" data-value=".">.</button>
-    </div>
-  </main>
+        <button class="btn" data-action="digit" data-value="1">1</button>
+        <button class="btn" data-action="digit" data-value="2">2</button>
+        <button class="btn" data-action="digit" data-value="3">3</button>
+        <button class="btn equals" data-action="equals" rowspan="2">=</button>
+
+        <button class="btn zero" data-action="digit" data-value="0">0</button>
+        <button class="btn" data-action="decimal" data-value=".">.</button>
+      </div>
+    </main>
+
+    <main class="converter" id="converterPanel" hidden>
+      <div class="conv-row">
+        <label for="decInput">DEC</label>
+        <input type="text" id="decInput" data-base="10" inputmode="numeric" placeholder="0" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="conv-row">
+        <label for="binInput">BIN</label>
+        <input type="text" id="binInput" data-base="2" inputmode="numeric" placeholder="0" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="conv-row">
+        <label for="hexInput">HEX</label>
+        <input type="text" id="hexInput" data-base="16" inputmode="text" placeholder="0" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="conv-error" id="convError"></div>
+      <button class="btn op conv-clear" id="convClear">Clear</button>
+    </main>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

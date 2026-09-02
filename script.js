@@ -129,6 +129,8 @@ document.querySelector(".buttons").addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (event.target.tagName === "INPUT") return;
+
   const { key } = event;
 
   if (/^[0-9]$/.test(key)) {
@@ -152,3 +154,94 @@ document.addEventListener("keydown", (event) => {
 });
 
 updateDisplay();
+
+// --- Tabs ---
+
+const tabBtns = document.querySelectorAll(".tab-btn");
+const calculatorPanel = document.getElementById("calculatorPanel");
+const converterPanel = document.getElementById("converterPanel");
+
+tabBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    tabBtns.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    const isCalculator = btn.dataset.tab === "calculator";
+    calculatorPanel.hidden = !isCalculator;
+    converterPanel.hidden = isCalculator;
+  });
+});
+
+// --- Base converter ---
+
+const decInput = document.getElementById("decInput");
+const binInput = document.getElementById("binInput");
+const hexInput = document.getElementById("hexInput");
+const convError = document.getElementById("convError");
+const convClear = document.getElementById("convClear");
+
+const convInputs = { dec: decInput, bin: binInput, hex: hexInput };
+const convBases = { dec: 10, bin: 2, hex: 16 };
+const convPatterns = { dec: /^[0-9]+$/, bin: /^[01]+$/, hex: /^[0-9a-fA-F]+$/ };
+
+function parseBaseValue(raw, key) {
+  let str = raw;
+  let negative = false;
+  if (str[0] === "-") {
+    negative = true;
+    str = str.slice(1);
+  }
+  if (str === "" || !convPatterns[key].test(str)) return undefined;
+
+  const base = BigInt(convBases[key]);
+  let value = 0n;
+  for (const char of str) {
+    value = value * base + BigInt(parseInt(char, convBases[key]));
+  }
+  return negative ? -value : value;
+}
+
+function formatBaseValue(value, key) {
+  const negative = value < 0n;
+  const abs = negative ? -value : value;
+  const digits = abs.toString(convBases[key]);
+  const formatted = key === "hex" ? digits.toUpperCase() : digits;
+  return (negative ? "-" : "") + formatted;
+}
+
+function handleConvInput(key) {
+  const input = convInputs[key];
+  const raw = input.value.trim();
+
+  convError.textContent = "";
+  Object.values(convInputs).forEach((el) => el.classList.remove("invalid"));
+
+  if (raw === "" || raw === "-") {
+    Object.entries(convInputs).forEach(([otherKey, el]) => {
+      if (otherKey !== key) el.value = "";
+    });
+    return;
+  }
+
+  const value = parseBaseValue(raw, key);
+  if (value === undefined) {
+    input.classList.add("invalid");
+    convError.textContent = `Invalid ${key.toUpperCase()} value`;
+    return;
+  }
+
+  Object.entries(convInputs).forEach(([otherKey, el]) => {
+    if (otherKey !== key) el.value = formatBaseValue(value, otherKey);
+  });
+}
+
+Object.entries(convInputs).forEach(([key, input]) => {
+  input.addEventListener("input", () => handleConvInput(key));
+});
+
+convClear.addEventListener("click", () => {
+  Object.values(convInputs).forEach((el) => {
+    el.value = "";
+    el.classList.remove("invalid");
+  });
+  convError.textContent = "";
+});
